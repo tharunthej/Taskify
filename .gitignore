@@ -1,0 +1,15 @@
+# .NET
+bin/
+obj/
+.vs/
+appsettings.Development.json
+
+# Angular
+node_modules/
+dist/
+.angular/cache
+
+# General
+*.log
+.env
+.DS_Store

@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 // Configure the database context
 builder.Services.AddDbContext<AppDbContext>(options =>

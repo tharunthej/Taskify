@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Taskify.Data;
+using Taskify.Services.Services;
+using Taskify.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 // Configure the database context
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -21,7 +25,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-// Add your custom endpoints here later (e.g., /api/tasks)
+app.MapControllers();
 
 app.Run();

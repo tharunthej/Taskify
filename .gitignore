@@ -4,6 +4,9 @@ obj/
 .vs/
 appsettings.Development.json
 
+# Local SQLite database and temporary files
+backend/Taskify.API/Taskify.db*
+
 # Angular
 node_modules/
 dist/

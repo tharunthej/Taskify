@@ -19,6 +19,7 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectMemberService, ProjectMemberService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAttachmentService, AttachmentService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 // Configure the database context
 builder.Services.AddDbContext<AppDbContext>(options =>

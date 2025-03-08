@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Taskify.Data\Taskify.Data.csproj" />
     <ProjectReference Include="..\Taskify.Models\Taskify.Models.csproj" />
     <ProjectReference Include="..\Taskify.Services\Taskify.Services.csproj" />
+    <ProjectReference Include="..\Taskify.MappingProfiles\Taskify.MappingProfiles.csproj" />
   </ItemGroup>
 
 </Project>

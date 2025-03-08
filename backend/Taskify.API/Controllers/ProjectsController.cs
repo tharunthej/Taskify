@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Taskify.DTO.ProjectsDTO;
 using Taskify.Models.Models;
 using Taskify.Services.Interfaces;
 
@@ -9,48 +11,57 @@ namespace Taskify.API.Controllers
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _projectService;
-
-        public ProjectsController(IProjectService projectService)
+        private readonly IMapper _mapper;
+        
+        public ProjectsController(IProjectService projectService, IMapper mapper)
         {
             _projectService = projectService;
+            _mapper = mapper;
         }
 
         // GET: api/projects
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetProjects()
         {
             var projects = await _projectService.GetAllProjectsAsync();
-            return Ok(projects);
+            var response = _mapper.Map<IEnumerable<ProjectResponseDto>>(projects);
+            return Ok(response);
         }
 
         // GET: api/projects/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<ProjectResponseDto>> GetProject(int id)
         {
             var project = await _projectService.GetProjectByIdAsync(id);
             if (project == null)
             {
                 return NotFound();
             }
-            return Ok(project);
+            var response = _mapper.Map<ProjectResponseDto>(project);
+            return Ok(response);
         }
 
         // POST: api/projects
         [HttpPost]
-        public async Task<ActionResult<Project>> CreateProject(Project project)
+        public async Task<ActionResult<ProjectResponseDto>> CreateProject([FromBody] CreateProjectDto createDto)
         {
-            var createdProject = await _projectService.CreateProjectAsync(project);
-            return CreatedAtAction(nameof(GetProject), new { id = createdProject.Id }, createdProject);
+            var newProject = _mapper.Map<Project>(createDto);
+            var createdProject = await _projectService.CreateProjectAsync(newProject);
+            var response = _mapper.Map<ProjectResponseDto>(createdProject);
+            return CreatedAtAction(nameof(GetProject), new { id = createdProject.Id }, response);
         }
 
         // PUT: api/projects/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProject(int id, Project project)
+        public async Task<IActionResult> UpdateProject(int id, [FromBody] UpdateProjectDto updateDto)
         {
-            if (id != project.Id)
+            var project = await _projectService.GetProjectByIdAsync(id);
+            if (project == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+
+            _mapper.Map(updateDto, project);
             await _projectService.UpdateProjectAsync(project);
             return NoContent();
         }

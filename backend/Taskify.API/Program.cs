@@ -2,8 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using Taskify.Data;
 using Taskify.Services.Services;
 using Taskify.Services.Interfaces;
+using Taskify.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register AutoMapper by specifying one of mapping profile types.
+// This will scan the assembly that contains ProjectProfile for all profiles.
+builder.Services.AddAutoMapper(typeof(ProjectProfile));
 
 // Add services to the container
 builder.Services.AddEndpointsApiExplorer();

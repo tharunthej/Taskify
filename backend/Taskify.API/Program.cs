@@ -18,6 +18,7 @@ builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectMemberService, ProjectMemberService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 // Configure the database context
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -27,7 +27,7 @@
 
       <!-- Add Task Button (To Do Column Only) -->
       <div *ngIf="status === 'To Do'" class="add-task">
-        <button mat-raised-button color="primary">+ Add Task</button>
+        <button mat-raised-button color="primary" (click)="openTaskForm()">+ Add Task</button>
       </div>
     </div>
   </div>

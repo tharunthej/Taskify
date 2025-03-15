@@ -1,0 +1,19 @@
+<!-- task-form.component.html -->
+<h2 mat-dialog-title>Create New Task</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <input matInput [(ngModel)]="task.title" name="title" placeholder="Title" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="task.description" name="description" 
+                placeholder="Description" rows="3"></textarea>
+    </mat-form-field>
+    
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary" type="submit">Create</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>

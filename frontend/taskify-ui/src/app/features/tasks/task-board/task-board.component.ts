@@ -57,7 +57,6 @@ export class TaskBoardComponent implements OnInit {
     return this.statuses.indexOf(statusName) + 1;
   }
 
-  // Add method
   openTaskForm(): void {
     const dialogRef = this.dialog.open(TaskFormComponent, {
     data: { projectId: 1 } // Pass actual project ID

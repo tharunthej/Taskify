@@ -5,11 +5,19 @@ import { TaskService } from '../../../services/task.service';
 import { TaskItem } from '../../../models/task.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-task-board',
   standalone: true,
-  imports: [CommonModule, CdkDropList, CdkDrag, MatCardModule, MatButtonModule],
+  imports: [
+    CommonModule, 
+    CdkDropList, 
+    CdkDrag, 
+    MatCardModule, 
+    MatButtonModule
+  ],
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.scss']
 })
@@ -17,7 +25,9 @@ export class TaskBoardComponent implements OnInit {
   tasks: TaskItem[] = [];
   statuses = ['To Do', 'In Progress', 'Done'];
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadTasks();
@@ -45,5 +55,16 @@ export class TaskBoardComponent implements OnInit {
 
   private getStatusId(statusName: string): number {
     return this.statuses.indexOf(statusName) + 1;
+  }
+
+  // Add method
+  openTaskForm(): void {
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+    data: { projectId: 1 } // Pass actual project ID
+    });
+
+    dialogRef.afterClosed().subscribe(created => {
+      if (created) this.loadTasks();
+    });
   }
 }

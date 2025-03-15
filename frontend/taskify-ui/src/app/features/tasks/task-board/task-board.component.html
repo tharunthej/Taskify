@@ -1,0 +1,34 @@
+<div class="board-container">
+  <div class="board">
+    <!-- Column for each status -->
+    <div *ngFor="let status of statuses" 
+         class="column" 
+         cdkDropList 
+         [id]="status" 
+         [cdkDropListData]="getTasksByStatus(status)"
+         (cdkDropListDropped)="onDrop($event)">
+
+      <h2 class="column-title">{{ status }}</h2>
+
+      <!-- Task Cards -->
+      <div *ngFor="let task of getTasksByStatus(status)" 
+           cdkDrag 
+           class="task-card">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ task.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ task.description }}</p>
+            <small>Assigned to: {{ task.assignee?.username || 'Unassigned' }}</small>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Add Task Button (To Do Column Only) -->
+      <div *ngIf="status === 'To Do'" class="add-task">
+        <button mat-raised-button color="primary">+ Add Task</button>
+      </div>
+    </div>
+  </div>
+</div>

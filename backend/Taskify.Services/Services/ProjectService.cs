@@ -24,10 +24,12 @@ namespace Taskify.Services.Services
 
         public async Task<Project> GetProjectByIdAsync(int id)
         {
-            return await _context.Projects
+            var project = await _context.Projects
                 .Include(p => p.Creator)
                 .Include(p => p.Members)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
+            return project ?? throw new KeyNotFoundException($"Project with ID {id} not found.");    
         }
 
         public async Task<Project> CreateProjectAsync(Project project)

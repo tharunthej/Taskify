@@ -3,6 +3,7 @@ using Taskify.Data;
 using Taskify.Services.Services;
 using Taskify.Services.Interfaces;
 using Taskify.MappingProfiles;
+using Taskify.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddAutoMapper(typeof(ProjectProfile));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddSignalR();
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IProjectMemberService, ProjectMemberService>();
@@ -36,5 +38,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapControllers();
+app.MapHub<TaskHub>("/taskhub");
 
 app.Run();

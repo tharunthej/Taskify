@@ -10,7 +10,7 @@ namespace Taskify.Services.Interfaces
 
         Task<TaskItem> CreateTaskAsync(TaskItem task);
 
-        Task UpdateTaskAsync(TaskItem task);
+        Task<TaskItem> UpdateTaskAsync(TaskItem task);
         
         Task DeleteTaskAsync(int id);
     }

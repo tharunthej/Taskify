@@ -38,7 +38,7 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
   }
 
   private initializeSignalR(): void {
-    this.signalr.startConnection();
+    this.signalr.startConnections();
     this.signalr.listenForTaskUpdates((updatedTask: TaskItem) => {
       const index = this.tasks.findIndex(t => t.id === updatedTask.id);
       if (index > -1) {
@@ -100,6 +100,6 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.signalr.stopConnection();
+    this.signalr.stopConnections();
   }
 }

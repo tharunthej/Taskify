@@ -39,5 +39,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.MapControllers();
 app.MapHub<TaskHub>("/taskhub");
+app.MapHub<ProjectHub>("/projectHub");
 
 app.Run();

@@ -1,5 +1,3 @@
-// src/app/models/task.model.ts
-
 export interface TaskItem {
     id: number;
     title: string;

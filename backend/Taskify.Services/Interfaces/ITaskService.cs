@@ -4,14 +4,14 @@ namespace Taskify.Services.Interfaces
 {
     public interface ITaskService
     {
-        Task<IEnumerable<TaskItem>> GetAllTasksAsync();
+        Task<IEnumerable<TaskItem>> GetAllTasksAsync(int userId);
 
-        Task<TaskItem> GetTaskByIdAsync(int id);
+        Task<TaskItem> GetTaskByIdAsync(int id, int userId);
 
-        Task<TaskItem> CreateTaskAsync(TaskItem task);
+        Task<TaskItem> CreateTaskAsync(TaskItem task, int userId);
 
-        Task<TaskItem> UpdateTaskAsync(TaskItem task);
+        Task<TaskItem> UpdateTaskAsync(TaskItem task, int userId);
         
-        Task DeleteTaskAsync(int id);
+        Task DeleteTaskAsync(int id, int userId);
     }
 }

@@ -1,1 +1,52 @@
-<p>register works!</p>
+<div class="register-container">
+    <mat-card class="register-card">
+      <mat-card-header>
+        <mat-card-title class="register-title">Create Your Account</mat-card-title>
+        <mat-card-subtitle class="register-subtitle">Join our community to get started</mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" required>
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="registerForm.get('username')?.hasError('required')">
+              Username is required
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" required>
+            <mat-icon matPrefix>mail</mat-icon>
+            <mat-error *ngIf="registerForm.get('email')?.errors">
+              Valid email is required
+            </mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" color="accent">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" required>
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-error *ngIf="registerForm.get('password')?.errors">
+              Password must be at least 8 characters
+            </mat-error>
+          </mat-form-field>
+  
+          <button mat-raised-button color="primary" type="submit" class="register-button" [disabled]="!registerForm.valid">
+            Create Account
+          </button>
+  
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+        </form>
+  
+        <div class="login-link">
+          Already have an account? 
+          <a mat-button color="accent" routerLink="/login">Sign in</a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+</div>

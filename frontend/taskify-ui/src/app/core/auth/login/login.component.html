@@ -1,14 +1,51 @@
-<mat-card>
-    <mat-card-title>Login</mat-card-title>
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header>
+      <mat-card-title class="login-title">Welcome Back!</mat-card-title>
+      <mat-card-subtitle class="login-subtitle">Please sign in to continue</mat-card-subtitle>
+    </mat-card-header>
+
     <mat-card-content>
-      <form (ngSubmit)="onSubmit()">
-        <mat-form-field>
-          <input matInput placeholder="Email" [(ngModel)]="credentials.email" required>
+      <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" required>
+          <mat-icon matPrefix>mail</mat-icon>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Enter a valid email
+          </mat-error>
         </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" [(ngModel)]="credentials.password" required>
+
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" required>
+          <mat-icon matPrefix>lock</mat-icon>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Password is required
+          </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Login</button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          class="login-button"
+          [disabled]="!loginForm.valid">
+          Login
+        </button>
+
+        <div *ngIf="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
       </form>
+
+      <div class="register-link">
+        Don't have an account?
+        <a mat-button color="accent" routerLink="/register">Create account</a>
+      </div>
     </mat-card-content>
   </mat-card>
+</div>

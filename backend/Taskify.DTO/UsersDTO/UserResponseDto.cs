@@ -8,8 +8,6 @@ namespace Taskify.DTO.UsersDTO
         
         public string Email { get; set; } = string.Empty;
         
-        public int UserRoleId { get; set; }
-        
         public DateTime CreatedAt { get; set; }
     }
 }

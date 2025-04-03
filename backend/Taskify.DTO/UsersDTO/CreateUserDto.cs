@@ -11,9 +11,6 @@ namespace Taskify.DTO.UsersDTO
         public required string Email { get; set; }
 
         [Required]
-        public required string PasswordHash { get; set; }
-
-        [Required]
-        public int UserRoleId { get; set; }
+        public required string Password { get; set; }
     }
 }

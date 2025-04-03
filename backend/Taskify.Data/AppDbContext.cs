@@ -26,11 +26,6 @@ namespace Taskify.Data
             // ----- User Entity -----
             modelBuilder.Entity<User>(user =>
             {
-                // User ↔ UserRole
-                user.HasOne<UserRole>()
-                    .WithMany()
-                    .HasForeignKey(u => u.UserRoleId)
-                    .OnDelete(DeleteBehavior.Restrict);
 
                 // User ↔ ProjectMember (ProjectMemberships)
                 user.HasMany(u => u.ProjectMemberships)

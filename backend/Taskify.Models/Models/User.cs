@@ -17,9 +17,6 @@ namespace Taskify.Models.Models
         [Required]
         public required string PasswordHash { get; set; }
 
-        [Required]
-        public required int UserRoleId { get; set; } // FK to UserRole
-
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         
 

@@ -1,0 +1,19 @@
+<div class="project-board-container">
+    <div class="header">
+      <h1>Your Projects</h1>
+      <button mat-raised-button color="primary" routerLink="/projects/new">
+        Create New Project
+      </button>
+    </div>
+  
+    <div *ngIf="isLoading" class="loading">
+      <mat-spinner diameter="50"></mat-spinner>
+    </div>
+  
+    <div *ngIf="!isLoading" class="projects-grid">
+      <app-project-card 
+        *ngFor="let project of projects"
+        [project]="project">
+      </app-project-card>
+    </div>
+</div>

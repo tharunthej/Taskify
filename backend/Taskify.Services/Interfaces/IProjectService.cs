@@ -4,16 +4,16 @@ namespace Taskify.Services.Interfaces
 {
     public interface IProjectService
     {
-        Task<IEnumerable<Project>> GetAllProjectsAsync();
+        Task<IEnumerable<Project>> GetAllProjectsAsync(int userId);
 
-        Task<Project> GetProjectByIdAsync(int id);
+        Task<Project> GetProjectByIdAsync(int id, int userId);
 
-        Task<Project> CreateProjectAsync(Project project);
-
-        Task<Project> UpdateProjectAsync(Project project);
-
-        Task DeleteProjectAsync(int id);
+        Task<Project> CreateProjectAsync(Project project, int userId);
         
-        Task AddMemberToProjectAsync(int projectId, int userId);
+        Task<Project> UpdateProjectAsync(Project project, int userId);
+
+        Task DeleteProjectAsync(int id, int userId);
+        
+        Task AddMemberToProjectAsync(int projectId, int userId, int currentUserId);
     }
 }

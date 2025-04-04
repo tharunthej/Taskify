@@ -18,5 +18,5 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'taskify-ui';
+  title = 'taskify';
 }

@@ -1,0 +1,17 @@
+.create-project-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+  
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+  }

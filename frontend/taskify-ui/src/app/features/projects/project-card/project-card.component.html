@@ -1,0 +1,27 @@
+<mat-card class="project-card">
+    <mat-card-header>
+      <mat-card-title>{{ project.name }}</mat-card-title>
+      <mat-card-subtitle>
+        Created by {{ project.creator?.username || 'Unknown user' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <p class="description">{{ project.description || 'No description' }}</p>
+      <div class="meta">
+        <span class="members">
+          <mat-icon>people</mat-icon>
+          {{ project.members?.length || 0 }} members
+        </span>
+        <span class="created-at">
+          Created {{ project.createdAt | date }}
+        </span>
+      </div>
+    </mat-card-content>
+  
+    <mat-card-actions>
+      <button mat-button color="primary" [routerLink]="['/projects', project.id]">
+        Open Project
+      </button>
+    </mat-card-actions>
+</mat-card>

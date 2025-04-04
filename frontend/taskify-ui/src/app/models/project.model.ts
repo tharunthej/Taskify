@@ -10,7 +10,7 @@ export interface Project {
     // Optional nested objects
     creator?: {
       id: number;
-      username: string;
+      username: string | null;
       email?: string;
     };
     

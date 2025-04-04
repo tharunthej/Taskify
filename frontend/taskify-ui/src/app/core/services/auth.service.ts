@@ -11,7 +11,7 @@ interface UserData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'https://localhost:5001/api/auth';
+  private apiUrl = 'http://localhost:5089/api/auth';
   private currentUserSubject = new BehaviorSubject<UserData | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 

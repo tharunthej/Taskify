@@ -47,7 +47,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/tasks';
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/projects';
           this.router.navigateByUrl(returnUrl);
         },
         error: (err) => {

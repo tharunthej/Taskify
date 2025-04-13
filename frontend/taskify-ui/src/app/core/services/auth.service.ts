@@ -1,18 +1,12 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, tap, catchError, throwError } from "rxjs";
-
-interface UserData {
-  userId: number;
-  username: string;
-  email: string;
-  token: string;
-}
+import { User, AuthUser } from "../../models/user.model";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:5089/api/auth';
-  private currentUserSubject = new BehaviorSubject<UserData | null>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -22,12 +16,13 @@ export class AuthService {
     }
   }
 
-  login(credentials: { email: string; password: string }): Observable<UserData> {
-    return this.http.post<UserData>(`${this.apiUrl}/login`, credentials).pipe(
+  login(credentials: { email: string; password: string }): Observable<AuthUser> {
+    return this.http.post<AuthUser>(`${this.apiUrl}/login`, credentials).pipe(
       tap(userData => {
         this.setUserData(userData);
         this.currentUserSubject.next(userData);
-      })
+      }),
+      catchError(this.handleError)
     );
   }
 
@@ -35,32 +30,28 @@ export class AuthService {
     username: string; 
     email: string; 
     password: string; 
-  }): Observable<UserData> {
-    return this.http.post<UserData>(`${this.apiUrl}/register`, userData).pipe(
-      catchError((error: HttpErrorResponse) => {
-        let errorMsg = 'Registration failed';
-        if (error.error?.message) {
-          errorMsg = error.error.message;
-        }
-        return throwError(() => new Error(errorMsg));
-      }),
+  }): Observable<AuthUser> {
+    return this.http.post<AuthUser>(`${this.apiUrl}/register`, userData).pipe(
       tap(userData => {
         this.setUserData(userData);
         this.currentUserSubject.next(userData);
-      })
+      }),
+      catchError(this.handleError)
     );
   }
 
-  private setUserData(userData: UserData): void {
+  private setUserData(userData: AuthUser): void {
     localStorage.setItem('currentUser', JSON.stringify(userData));
-    localStorage.setItem('auth_token', userData.token);
+    if (userData.token) {
+      localStorage.setItem('auth_token', userData.token);
+    }
   }
 
   getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
 
-  getCurrentUser(): UserData | null {
+  getCurrentUser(): User | null {
     return this.currentUserSubject.value;
   }
 
@@ -72,5 +63,21 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('auth_token');
     this.currentUserSubject.next(null);
+  }
+
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An unknown error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      if (error.error?.message) {
+        errorMessage = error.error.message;
+      } else {
+        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      }
+    }
+    return throwError(() => new Error(errorMessage));
   }
 }

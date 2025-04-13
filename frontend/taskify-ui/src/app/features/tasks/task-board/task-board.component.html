@@ -1,4 +1,18 @@
+<app-nav-bar></app-nav-bar>
 <div class="board-container">
+  <!-- Add Task Button -->
+  <div class="board-header">
+    <h1 class="page-title">Task Board</h1>
+    <button mat-raised-button 
+            color="primary" 
+            (click)="openTaskForm()"
+            [disabled]="!isProjectAdmin"
+            class="add-task-btn">
+      <mat-icon>add</mat-icon>
+      Add Task
+    </button>
+  </div>
+
   <div class="board">
     <!-- Column for each status -->
     <div *ngFor="let status of statuses" 
@@ -8,26 +22,44 @@
          [cdkDropListData]="getTasksByStatus(status)"
          (cdkDropListDropped)="onDrop($event)">
 
-      <h2 class="column-title">{{ status }}</h2>
-
-      <!-- Task Cards -->
-      <div *ngFor="let task of getTasksByStatus(status)" 
-           cdkDrag 
-           class="task-card">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ task.title }}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>{{ task.description }}</p>
-            <small>Assigned to: {{ task.assignee?.username || 'Unassigned' }}</small>
-          </mat-card-content>
-        </mat-card>
+      <!-- Column Header -->
+      <div class="column-header">
+        <div class="status-indicator {{ status | lowercase | replace:' ':'-' }}"></div>
+        <h2 class="column-title">{{ status }}</h2>
+        <span class="task-count">{{ getTasksByStatus(status).length }}</span>
       </div>
 
-      <!-- Add Task Button (To Do Column Only) -->
-      <div *ngIf="status === 'To Do'" class="add-task">
-        <button mat-raised-button color="primary" (click)="openTaskForm()">+ Add Task</button>
+      <div class="task-list-container">
+        <!-- Task Cards -->
+        <div *ngFor="let task of getTasksByStatus(status)" 
+             cdkDrag 
+             class="task-card"
+             [class.dragging]="task === draggedTask">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ task.title }}</mat-card-title>
+              <mat-icon mat-card-avatar class="task-type-icon">assignment</mat-icon>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="task-description">{{ task.description || 'No description' }}</p>
+              <div class="task-footer">
+                <span class="assignee">
+                  <mat-icon>person</mat-icon>
+                  {{ task.assignee?.username || 'Unassigned' }}
+                </span>
+                <!-- <span class="due-date" *ngIf="task.dueDate">
+                  <mat-icon>calendar_today</mat-icon>
+                  {{ task.dueDate | date: 'shortDate' }}
+                </span> -->
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <!-- Empty State -->
+      <div *ngIf="getTasksByStatus(status).length === 0" class="empty-state">
+        <mat-icon>inbox</mat-icon>
+        <p>No tasks here</p>
       </div>
     </div>
   </div>

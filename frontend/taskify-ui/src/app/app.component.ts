@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -8,8 +8,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   selector: 'app-root',
   standalone: true, // 👈 Enable standalone mode
   imports: [
-    RouterOutlet,
-    RouterLink,  
+    RouterOutlet,  
     MatToolbarModule,
     MatButtonModule,
     MatDialogModule

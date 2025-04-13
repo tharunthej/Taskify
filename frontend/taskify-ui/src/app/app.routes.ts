@@ -1,17 +1,22 @@
 import { Routes } from '@angular/router';
 import { TaskBoardComponent } from './features/tasks/task-board/task-board.component';
-import { LoginComponent } from './core/auth/login/login.component';
-import { RegisterComponent } from './core/auth/register/register.component';
 import { AuthGuard } from './core/guards/auth.guard';
-import { reverseAuthGuard } from './core/guards/reverse-auth.guard';
 import { ProjectBoardComponent } from './features/projects/project-board/project-board.component';
 import { CreateProjectComponent } from './features/projects/create-project/create-project.component';
+import { ProjectCardComponent } from './features/projects/project-card/project-card.component';
+import { UserProfileComponent } from './features/users/user-profile/user-profile.component';
+import { HomeComponent } from './home/home/home.component';
+import { NavBarComponent } from './core/nav-bar/nav-bar/nav-bar.component';
 
 export const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'tasks', component: TaskBoardComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [reverseAuthGuard] },
-  { path: 'register', component: RegisterComponent, canActivate: [reverseAuthGuard] },
-  { path: 'projects', component: ProjectBoardComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: ProjectBoardComponent, canActivate: [AuthGuard], children: [
+    { path: '', component: NavBarComponent, outlet: 'navbar' } 
+  ] },
+  { path: 'projects/:id', component: ProjectCardComponent, canActivate: [AuthGuard], children: [
+    { path: '', component: NavBarComponent, outlet: 'navbar' }
+  ] },
   { path: 'projects/new', component: CreateProjectComponent },
-  { path: '', redirectTo: '/projects', pathMatch: 'full' },
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
 ];

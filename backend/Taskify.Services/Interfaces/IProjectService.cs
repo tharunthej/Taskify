@@ -8,7 +8,7 @@ namespace Taskify.Services.Interfaces
 
         Task<Project> GetProjectByIdAsync(int id, int userId);
 
-        Task<Project> CreateProjectAsync(Project project, int userId);
+        Task<Project> CreateProjectAsync(Project project);
         
         Task<Project> UpdateProjectAsync(Project project, int userId);
 

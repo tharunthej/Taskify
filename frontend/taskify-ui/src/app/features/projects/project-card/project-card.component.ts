@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { DatePipe, CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 import { Project } from '../../../models/project.model';
 
 @Component({
@@ -14,12 +14,16 @@ import { Project } from '../../../models/project.model';
   imports: [
     CommonModule,
     MatCardModule,
-    MatIconModule,
     MatButtonModule,
-    RouterLink,
-    DatePipe
+    MatIconModule
   ]
 })
 export class ProjectCardComponent {
   @Input() project!: Project;
+
+  constructor(private router: Router) {}
+
+  navigateToProject(): void {
+    this.router.navigate(['/projects', this.project.id]);
+  }
 }

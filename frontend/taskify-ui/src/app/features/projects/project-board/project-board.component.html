@@ -1,8 +1,13 @@
+<app-nav-bar></app-nav-bar>
 <div class="project-board-container">
-    <div class="header">
-      <h1>Your Projects</h1>
-      <button mat-raised-button color="primary" routerLink="/projects/new">
-        Create New Project
+    <div class="board-header">
+      <h1 class="page-title">Project Dashboard</h1>
+      <button mat-raised-button 
+              color="primary" 
+              routerLink="/projects/new" 
+              class="create-button">
+        <mat-icon>add</mat-icon>
+        New Project
       </button>
     </div>
   
@@ -10,7 +15,7 @@
       <mat-spinner diameter="50"></mat-spinner>
     </div>
   
-    <div *ngIf="!isLoading" class="projects-grid">
+    <div *ngIf="!isLoading" class="projects-list">
       <app-project-card 
         *ngFor="let project of projects"
         [project]="project">

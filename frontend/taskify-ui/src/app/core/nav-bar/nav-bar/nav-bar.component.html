@@ -1,0 +1,34 @@
+<mat-toolbar color="primary">
+  <span routerLink="/projects" class="logo">taskify</span>
+  
+  <!-- Vertical separator -->
+  <div class="logo-separator"></div>
+
+  <!-- Navigation Links -->
+  <button mat-button routerLink="/projects" routerLinkActive="active">
+      <mat-icon>folder</mat-icon>
+      Projects
+  </button>
+  
+  <button mat-button routerLink="/tasks" routerLinkActive="active">
+      <mat-icon>assignment</mat-icon>
+      Tasks
+  </button>
+
+  <div class="spacer"></div>
+
+  <button mat-button [matMenuTriggerFor]="profileMenu" class="account-button">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+
+  <mat-menu #profileMenu="matMenu">
+    <button mat-menu-item routerLink="/profile">
+      <mat-icon>person</mat-icon>
+      My Profile
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </mat-menu>
+</mat-toolbar>

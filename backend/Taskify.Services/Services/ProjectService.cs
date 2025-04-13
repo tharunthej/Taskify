@@ -49,29 +49,23 @@ namespace Taskify.Services.Services
             return project;
         }
 
-        public async Task<Project> CreateProjectAsync(Project project, int userId)
+        public async Task<Project> CreateProjectAsync(Project project)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                // Get the creator user
-                var creator = await _context.Users.FindAsync(userId);
+                // Get creator from project.CreatedBy set by controller
+                var creator = await _context.Users.FindAsync(project.CreatedBy);
                 if (creator == null) throw new ArgumentException("Invalid user");
-
-                // Set creator and add as admin
-                project.CreatedBy = userId;
-                project.Creator = creator; // Set navigation property
 
                 _context.Projects.Add(project);
                 await _context.SaveChangesAsync();
 
-                // Add creator as admin
                 var adminMember = new ProjectMember
                 {
                     ProjectId = project.Id,
-                    UserId = userId,
+                    UserId = project.CreatedBy,
                     UserRoleId = 1, // Admin
-                    // Initialize required navigation properties
                     Project = project,
                     User = creator
                 };
@@ -79,9 +73,7 @@ namespace Taskify.Services.Services
                 _context.ProjectMembers.Add(adminMember);
                 await _context.SaveChangesAsync();
 
-                var responseDto = _mapper.Map<ProjectResponseDto>(project);
-                await _hubContext.Clients.All.SendAsync("ProjectCreated", responseDto);
-
+                await _hubContext.Clients.All.SendAsync("ProjectCreated", _mapper.Map<ProjectResponseDto>(project));
                 await transaction.CommitAsync();
                 return project;
             }

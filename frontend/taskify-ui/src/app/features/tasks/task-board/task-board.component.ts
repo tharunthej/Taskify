@@ -6,6 +6,9 @@ import { TaskItem } from '../../../models/task.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { ReplacePipe } from '../../../core/pipes/replace-spaces.pipe';
+import { NavBarComponent } from '../../../core/nav-bar/nav-bar/nav-bar.component';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { SignalRService } from '../../../services/signalr.service';
 
@@ -16,8 +19,11 @@ import { SignalRService } from '../../../services/signalr.service';
     CommonModule, 
     CdkDropList, 
     CdkDrag, 
+    ReplacePipe,
+    NavBarComponent,
     MatCardModule, 
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.scss']
@@ -62,7 +68,12 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
     );
   }
 
+  draggedTask: TaskItem | null = null;
+  isProjectAdmin = true; // Set this based on actual user role
+
   onDrop(event: CdkDragDrop<TaskItem[]>): void {
+    this.draggedTask = null;
+  
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -80,6 +91,10 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
         error: () => this.loadTasks() // Rollback if error
       });
     }
+  }
+
+  onDragStarted(task: TaskItem): void {
+    this.draggedTask = task;
   }
 
   private getStatusId(statusName: string): number {

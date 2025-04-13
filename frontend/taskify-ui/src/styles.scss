@@ -1,1 +1,38 @@
-@import '@angular/material/prebuilt-themes/indigo-pink.css';
+// styles.scss
+@use '@angular/material' as mat;
+
+// Step 1: Define the core styles first
+//@include mat.core();
+
+// Step 2: Define the color palettes
+$primary-palette: mat.m2-define-palette(mat.$m2-indigo-palette);
+$accent-palette: mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
+$warn-palette: mat.m2-define-palette(mat.$m2-red-palette);
+
+// Step 3: Create the theme
+$theme: mat.m2-define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  )
+));
+
+// Step 4: Apply the theme
+@include mat.all-component-themes($theme);
+
+.mat-menu-panel.profile-menu {
+  z-index: 2000 !important;
+}
+
+// Global styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+}

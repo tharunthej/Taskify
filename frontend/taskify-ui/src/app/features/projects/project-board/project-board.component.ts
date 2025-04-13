@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 import { ProjectService } from '../../../core/services/project.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { Project } from '../../../models/project.model';
 import { ProjectCardComponent } from '../project-card/project-card.component';
+import { NavBarComponent } from '../../../core/nav-bar/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-project-board',
@@ -16,7 +18,9 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
     CommonModule,
     RouterLink,
     ProjectCardComponent,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    NavBarComponent
   ]
 })
 export class ProjectBoardComponent implements OnInit {

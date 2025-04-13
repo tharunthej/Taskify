@@ -9,8 +9,5 @@ namespace Taskify.DTO.ProjectsDTO
 
         [MaxLength(500)]
         public string? Description { get; set; }
-
-        [Required]
-        public required int CreatedBy { get; set; } // User ID
     }
 }

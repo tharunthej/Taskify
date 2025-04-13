@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -27,6 +27,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  @Output() switchToRegister = new EventEmitter<void>();
   loginForm: FormGroup;
   errorMessage: string | null = null;
 
@@ -36,7 +37,6 @@ export class LoginComponent {
     private router: Router,
     private route: ActivatedRoute 
   ) {
-    // Initialize the login form with email and password controls
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -51,10 +51,14 @@ export class LoginComponent {
           this.router.navigateByUrl(returnUrl);
         },
         error: (err) => {
-          this.errorMessage = 'Login failed. Please try again.';
-          console.error('Login failed:', err);
+          this.errorMessage = 'Login failed. Please check your credentials and try again.';
+          console.error('Login error:', err);
         }
       });
     }
+  }
+
+  switchToRegisterForm(): void {
+    this.switchToRegister.emit();
   }
 }

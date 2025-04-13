@@ -1,0 +1,48 @@
+.home-container {
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    padding: 2rem;
+  
+    .content-wrapper {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 2rem;
+    }
+  
+    .left-half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      padding-right: 2rem;
+  
+      .text-content {
+        width: 80%;
+        margin-left: auto;
+        color: white;
+  
+        .app-title {
+          font-family: 'Dancing Script', cursive;
+          font-size: 4.5rem;
+          line-height: 1.1;
+          margin-bottom: 1.5rem;
+        }
+  
+        .app-description {
+          font-size: 1.4rem;
+          line-height: 1.6;
+          opacity: 0.9;
+        }
+      }
+    }
+  
+    .right-half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+}

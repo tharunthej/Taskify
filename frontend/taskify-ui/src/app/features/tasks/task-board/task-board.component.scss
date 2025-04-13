@@ -1,32 +1,201 @@
 .board-container {
-    padding: 20px;
-    overflow-x: auto;
-  }
+  padding: 160px 20px 20px; // Increased top padding to 160px
+  height: calc(100vh - 64px); // Full height minus nav bar
+  overflow: hidden; // Prevent main scrollbar
   
-  .board {
+  .board-header {
+    position: fixed;
+    top: 64px;
+    left: 20px;
+    right: 20px;
+    height: 80px;
     display: flex;
-    gap: 16px;
-    min-width: fit-content;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+
+    .page-title {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #2c3e50;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      &::before {
+        content: '';
+        display: block;
+        width: 4px;
+        height: 24px;
+        background: #3f51b5;
+        border-radius: 2px;
+      }
+    }
+
+    .add-task-btn {
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: transform 0.2s ease;
+
+      mat-icon {
+        margin-right: 8px;
+        transform: translateY(-1px);
+      }
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(63, 81, 181, 0.2);
+        background: #3949ab; // Darker shade on hover
+      }
+    }
   }
+}
+
+.board {
+  display: flex;
+  gap: 24px;
+  padding: 100px 20px 20px; // Push content below header
+  height: calc(100vh - 144px); // 144px = nav(64) + header(80)
+  justify-content: center;
+  min-width: fit-content;
+  padding: 0 20px;
+}
+
+.column {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  width: 320px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   
-  .column {
-    background: #f5f5f5;
+  .column-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px;
+    flex-shrink: 0;
+    background: white;
     border-radius: 4px;
-    padding: 16px;
-    min-width: 300px;
-    min-height: 500px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+
+    .status-indicator {
+      width: 8px;
+      height: 24px;
+      border-radius: 4px;
+      margin-right: 12px;
+
+      &.to-do { background: #4a9eff; }
+      &.in-progress { background: #ffb74d; }
+      &.done { background: #66bb6a; }
+    }
+
+    .column-title {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #5e6c84;
+    }
+
+    .task-list-container {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .task-count {
+      margin-left: auto;
+      background: #ebecf0;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+    }
   }
+}
+
+.task-card {
+  margin-bottom: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   
-  .column-title {
-    margin: 0 0 16px 0;
-    color: #3f51b5;
+  &.cdk-drag-preview {
+    opacity: 0.8;
+    transform: rotate(3deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
-  
-  .task-card {
+
+  &.cdk-drag-placeholder {
+    opacity: 0;
+  }
+
+  &.cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+  .mat-card {
+    padding: 12px;
+    border-left: 3px solid;
+    
+    &[cdkDrag] {
+      cursor: move;
+    }
+
+    .task-type-icon {
+      color: #5e6c84;
+    }
+
+    .task-description {
+      color: #5e6c84;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+
+    .task-footer {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      color: #5e6c84;
+
+      .assignee, .due-date {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      mat-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 24px;
+  color: #5e6c84;
+
+  mat-icon {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
     margin-bottom: 8px;
-    cursor: move;
+    opacity: 0.6;
   }
-  
-  .add-task {
-    margin-top: 16px;
+
+  p {
+    margin: 0;
+    font-size: 14px;
   }
+}

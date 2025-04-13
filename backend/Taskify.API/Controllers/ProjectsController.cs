@@ -72,7 +72,11 @@ namespace Taskify.API.Controllers
             try
             {
                 var project = _mapper.Map<Project>(createDto);
-                var createdProject = await _projectService.CreateProjectAsync(project, GetCurrentUserId());
+                // Add creator info from authenticated user
+                project.CreatedBy = GetCurrentUserId(); 
+                project.CreatedAt = DateTime.UtcNow;
+        
+                var createdProject = await _projectService.CreateProjectAsync(project);
                 var response = CreatedAtAction(nameof(GetProject), 
                     new { id = createdProject.Id }, 
                     _mapper.Map<ProjectResponseDto>(createdProject));

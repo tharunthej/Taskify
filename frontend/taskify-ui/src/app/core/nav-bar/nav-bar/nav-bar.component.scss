@@ -1,0 +1,102 @@
+@use '@angular/material' as mat;
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  padding: 0 2rem;
+  background-color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, 500);
+  color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, '500-contrast');
+  transition: all 0.3s ease;
+
+  .logo {
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, '50-contrast');
+    transition: transform 0.3s ease;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    margin-right: 1.5rem; // Added space after logo
+
+    &:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  }
+
+  .logo-separator {
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    height: 24px;
+    margin-right: 1.5rem;
+  }
+
+  button[mat-button]:not(.account-button) {
+    display: flex;
+    align-items: center;
+    gap: 4px; // Reduced gap between icon and text
+    color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, '50-contrast');
+    transition: all 0.3s ease;
+    border-radius: 0;
+    margin: 0 8px;
+    padding: 0 12px;
+    height: 100%;
+    position: relative;
+    
+    mat-icon {
+      font-size: 20px;
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      background-color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, 600);
+    }
+
+    &.active {
+      background-color: transparent;
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, '50-contrast');
+      }
+    }
+  }
+
+  .account-button {
+    mat-icon {
+      font-size: 32px !important;
+      width: 32px !important;
+      height: 32px !important;
+    }
+  }
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+mat-menu {
+  min-width: 180px;
+  margin-top: 8px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  button[mat-menu-item] {
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+
+    mat-icon {
+      margin-right: 12px;
+      color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, 300);
+    }
+
+    &:hover {
+      background-color: mat.m2-get-color-from-palette(mat.$m2-indigo-palette, 50);
+    }
+  }
+}

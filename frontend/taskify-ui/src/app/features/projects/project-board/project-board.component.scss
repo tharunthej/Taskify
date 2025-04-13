@@ -1,22 +1,96 @@
 .project-board-container {
-    padding: 2rem;
+    padding: 160px 20px 20px;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
   
-    .header {
+    .board-header {
+      position: fixed;
+      top: 64px;
+      left: 20px;
+      right: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 2rem;
+      padding: 16px 24px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+  
+      .page-title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+  
+        &::before {
+          content: '';
+          display: block;
+          width: 4px;
+          height: 24px;
+          background: #3f51b5;
+          border-radius: 2px;
+        }
+      }
     }
   
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    .projects-list {
+      display: flex;
+      flex-direction: column;
       gap: 1.5rem;
+      padding: 0 20px;
+      
+      app-project-card {
+        width: 100%;
+        
+        &:not(:last-child) {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          padding-bottom: 1.5rem;
+        }
+      }
     }
   
     .loading {
       display: flex;
       justify-content: center;
-      padding: 2rem;
+      padding: 4rem 0;
     }
-  }
+  
+    .create-button {
+        padding: 8px 20px;
+        font-weight: 500;
+        font-size: 14px; // Match Add Task button
+        letter-spacing: 0.25px; // Add material typography spacing
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); // Match animation curve
+        border-radius: 8px;
+        background: #3f51b5;
+        color: white;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); // Match elevation
+        display: flex;
+        align-items: center;
+        line-height: 1.25; // Perfect vertical alignment
+        
+        mat-icon {
+          margin-right: 8px;
+          font-size: 20px; // Match icon size
+          width: 20px;
+          height: 20px;
+          transform: translateY(-1px);
+        }
+      
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 5px 8px rgba(63, 81, 181, 0.3); // Match hover elevation
+          background: #3949ab;
+        }
+      
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16); // Match active state
+        }
+    }
+}

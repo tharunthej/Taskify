@@ -1,25 +1,78 @@
 .project-card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  user-select: none;
+  border-radius: 12px !important; // Rounded corners
+  border: 1px solid rgba(0, 0, 0, 0.08); // Subtle border
+  overflow: hidden; // Keep content within rounded borders
   
-    .description {
-      color: rgba(0, 0, 0, 0.6);
-      margin: 1rem 0;
-      min-height: 60px;
-    }
-  
-    .meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.9rem;
-      color: rgba(0, 0, 0, 0.6);
-  
-      .members {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+
+  &:focus {
+    outline: 2px solid rgba(63, 81, 181, 0.3);
+    outline-offset: 2px;
+  }
+
+  mat-card-header {
+    padding: 20px 24px 16px;
+    background: rgba(63, 81, 181, 0.03);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  mat-card-title {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 0.85rem;
+    color: #6b7280 !important;
+    margin-top: 4px;
+  }
+
+  .description {
+    color: #4b5563;
+    margin: 16px 24px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    min-height: auto;
+  }
+
+  .meta {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.02);
+    font-size: 0.85rem;
+    color: #6b7280;
+
+    .members {
+      mat-icon {
+        color: #3f51b5;
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        position: relative;
+        top: -1px;
       }
     }
+
+    .created-at {
+      font-style: italic;
+    }
   }
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,6 +28,7 @@ import { RouterModule } from '@angular/router';
   ]
 })
 export class RegisterComponent {
+  @Output() switchToLogin = new EventEmitter<void>();
   registerForm: FormGroup;
   errorMessage: string | null = null;
 
@@ -54,5 +55,9 @@ export class RegisterComponent {
         }
       });
     }
+  }
+
+  switchToRegisterForm(): void {
+    this.switchToLogin.emit();
   }
 }

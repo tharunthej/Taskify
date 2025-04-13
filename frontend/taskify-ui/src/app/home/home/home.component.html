@@ -1,0 +1,18 @@
+<div class="home-container">
+    <div class="content-wrapper">
+      <div class="left-half">
+        <div class="text-content">
+          <h1 class="app-title">Taskify</h1>
+          <p class="app-description">
+            Collaborate seamlessly with your team.<br>
+            Manage tasks, track progress, and achieve more.
+          </p>
+        </div>
+      </div>
+      
+      <div class="right-half">
+        <app-login *ngIf="showLogin" (switchToRegister)="showLogin = false"></app-login>
+        <app-register *ngIf="!showLogin" (switchToLogin)="showLogin = true"></app-register>
+      </div>
+    </div>
+</div>

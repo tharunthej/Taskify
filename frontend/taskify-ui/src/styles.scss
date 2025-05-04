@@ -36,3 +36,13 @@ body, html {
   height: 100%;
   overflow: hidden;
 }
+
+.project-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 12px !important;
+  }
+  
+  .mdc-dialog__surface {
+    overflow: visible !important;
+  }
+}

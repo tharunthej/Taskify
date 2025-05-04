@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import { Project } from '../../../models/project.model';
+import { Project, ProjectResponse } from '../../../models/project.model';
 
 @Component({
   selector: 'app-project-card',
@@ -15,11 +15,11 @@ import { Project } from '../../../models/project.model';
     CommonModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
-  ]
+    MatIconModule,
+]
 })
 export class ProjectCardComponent {
-  @Input() project!: Project;
+  @Input() project!: ProjectResponse;
 
   constructor(private router: Router) {}
 

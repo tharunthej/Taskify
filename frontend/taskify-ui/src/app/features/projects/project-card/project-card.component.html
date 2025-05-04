@@ -1,3 +1,4 @@
+<!-- project-card.component.html -->
 <mat-card 
   class="project-card"
   (click)="navigateToProject()"
@@ -8,20 +9,22 @@
     <mat-card-header>
       <mat-card-title>{{ project.name }}</mat-card-title>
       <mat-card-subtitle>
-        Created by {{ project.creator?.username || 'Unknown user' }}
+        Created by {{ project.creatorName }}
       </mat-card-subtitle>
     </mat-card-header>
   
     <mat-card-content>
       <p class="description">{{ project.description || 'No description' }}</p>
       <div class="meta">
-        <span class="members">
-          <mat-icon>people</mat-icon>
-          {{ project.members?.length || 0 }} members
-        </span>
-        <span class="created-at">
-          Created {{ project.createdAt | date }}
-        </span>
+        <div class="meta-content">
+          <span class="members">
+            <mat-icon>people</mat-icon>
+            {{ project.members?.length || 0 }} members
+          </span>
+          <span class="created-at">
+            Created {{ project.createdAt | date }}
+          </span>
+        </div>
       </div>
     </mat-card-content>
 </mat-card>

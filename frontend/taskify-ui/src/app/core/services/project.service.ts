@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Project } from '../../models/project.model';
+import { Project, ProjectMember, ProjectResponse } from '../../models/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   // Get all projects for current user
-  getAllProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+  getAllProjects(): Observable<ProjectResponse[]> {
+    return this.http.get<ProjectResponse[]>(this.apiUrl);
   }
 
   // Get single project by ID
-  getProjectById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}/${id}`);
+  getProjectById(id: number): Observable<ProjectResponse> {
+    return this.http.get<ProjectResponse>(`${this.apiUrl}/${id}`);
   }
 
   // Create new project
@@ -39,5 +39,10 @@ export class ProjectService {
   // Add member to project
   addMember(projectId: number, userId: number): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/${projectId}/members/${userId}`, {});
+  }
+
+  // Get all members of a project
+  getProjectMembers(projectId: number): Observable<ProjectMember[]> {
+    return this.http.get<ProjectMember[]>(`${this.apiUrl}/${projectId}/members`);
   }
 }

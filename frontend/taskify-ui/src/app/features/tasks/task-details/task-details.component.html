@@ -1,0 +1,90 @@
+<mat-card class="task-card">
+    <mat-card-header>
+      <mat-card-title>{{ task.title }}</mat-card-title>
+    </mat-card-header>
+  
+    <mat-card-content>
+      <!-- Metadata Section -->
+      <div class="metadata-grid">
+        <div class="metadata-item">
+          <span class="label">Status:</span>
+          <mat-chip [style.background]="statusColors[task.statusId]">
+            {{ taskStatusName }}
+          </mat-chip>
+        </div>
+        
+        <div class="metadata-item">
+            <span class="label">Priority:</span>
+            <mat-chip [style.background]="priorityColors[task.priorityId]">
+              {{ taskPriorityName }}
+            </mat-chip>
+        </div>
+  
+        <div class="metadata-item">
+          <span class="label">Created By:</span>
+          <span>{{ task.creator?.username }}</span>
+        </div>
+  
+        <div class="metadata-item">
+          <span class="label">Created At:</span>
+          <span>{{ task.createdAt | date:'medium' }}</span>
+        </div>
+  
+        <div class="metadata-item">
+          <span class="label">Assigned To:</span>
+          <span>{{ task.assignee?.username || 'Unassigned' }}</span>
+        </div>
+      </div>
+  
+      <!-- Description Section -->
+      <div class="description-section">
+        <h3>Description</h3>
+        <p>{{ task.description || 'No description provided' }}</p>
+      </div>
+  
+      <!-- Comments Section -->
+      <div class="comments-section">
+        <h3>Comments</h3>
+        <mat-list>
+            @for (comment of task.comments; track comment.id) {
+                <mat-list-item>
+                  <div class="comment">
+                    <div class="comment-header">
+                      <span class="author">{{ comment.user?.username }}</span>
+                      <span class="date">{{ comment.createdAt | date:'short' }}</span>
+                    </div>
+                    <p class="text">{{ comment.content }}</p>
+                  </div>
+                </mat-list-item>
+            }
+          @empty {
+            <p class="no-comments">No comments yet</p>
+          }
+        </mat-list>
+        
+        <div class="comment-input">
+          <mat-form-field appearance="outline">
+            <textarea matInput placeholder="Add comment" [formControl]="commentControl"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="addComment()">Post</button>
+        </div>
+      </div>
+  
+      <!-- Attachments Section -->
+      <div class="attachments-section">
+        <h3>Attachments</h3>
+        @if (task.attachments?.length) {
+          <div class="attachments-list">
+            @for (attachment of task.attachments; track attachment.id) {
+              <div class="attachment-item">
+                <!-- <mat-icon>{{ getFileIcon(attachment.type) }}</mat-icon> -->
+                <span class="filename">{{ attachment.fileName }}</span>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="no-attachments">No attachments</p>
+        }
+      </div>
+    </mat-card-content>
+</mat-card>

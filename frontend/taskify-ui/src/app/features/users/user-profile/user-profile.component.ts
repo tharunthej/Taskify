@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { ProjectService } from '../../../core/services/project.service';
 import { User } from '../../../models/user.model';
-import { Project } from '../../../models/project.model';
+import { Project, ProjectResponse } from '../../../models/project.model';
 import { ProjectCardComponent } from "../../projects/project-card/project-card.component";
 
 @Component({
@@ -13,7 +13,7 @@ import { ProjectCardComponent } from "../../projects/project-card/project-card.c
 })
 export class UserProfileComponent {
   user: User | null = null;
-  projects: Project[] = [];
+  projects: ProjectResponse[] = [];
 
   constructor(
     private authService: AuthService,

@@ -1,17 +1,107 @@
-.create-project-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 1rem;
-  
-    mat-form-field {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-  
-    .actions {
-      display: flex;
-      gap: 1rem;
-      justify-content: flex-end;
-      margin-top: 1rem;
+/* create-project.component.scss */
+.create-project-dialog {
+  border-radius: 12px !important;
+  overflow: hidden;
+  padding: 0 24px 24px;
+  position: relative;
+  min-width: 500px;
+
+  .dialog-accent {
+    border-radius: 12px 12px 0 0; // Match top corners
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+  }
+
+  .dialog-title {
+    border-radius: 12px 12px 0 0; // For header area
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px 0 16px;
+    margin: 0 -24px;
+    border-bottom: 1px solid #e0e0e0;
+
+    .header-icon {
+      color: #4CAF50;
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+      margin-left: 24px;
     }
   }
+
+  mat-dialog-content {
+    border-radius: 0 0 12px 12px; // For content area
+    padding: 16px 0;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 1.5rem;
+
+    .form-icon {
+      color: #757575;
+      margin-right: 12px;
+    }
+
+    .character-counter {
+      font-size: 0.85rem;
+      color: #757575;
+    }
+  }
+
+  .dialog-actions {
+    margin-top: 24px;
+    padding: 16px 0 0;
+    border-top: 1px solid #e0e0e0;
+
+    .submit-btn {
+      background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);
+      color: white;
+      padding: 0 32px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s ease;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+
+      &:hover:not([disabled]) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      }
+
+      &[disabled] {
+        background: #e0e0e0;
+        color: #9e9e9e;
+      }
+    }
+
+    .cancel-btn {
+      border-color: #e0e0e0;
+      margin-right: 8px;
+    }
+  }
+
+  mat-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #d32f2f;
+
+    mat-icon {
+      font-size: 1.1rem;
+    }
+  }
+
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    border-radius: 12px !important;
+  }
+}

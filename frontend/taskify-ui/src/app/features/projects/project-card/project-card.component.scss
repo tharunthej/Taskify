@@ -6,9 +6,9 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   user-select: none;
-  border-radius: 12px !important; // Rounded corners
-  border: 1px solid rgba(0, 0, 0, 0.08); // Subtle border
-  overflow: hidden; // Keep content within rounded borders
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
   
   &:hover {
     transform: translateY(-4px);
@@ -57,10 +57,20 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     margin-top: auto;
     background: rgba(0, 0, 0, 0.02);
-    font-size: 0.85rem;
-    color: #6b7280;
+
+    &-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     .members {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #6b7280;
+
       mat-icon {
         color: #3f51b5;
         font-size: 18px;
@@ -72,6 +82,8 @@
     }
 
     .created-at {
+      font-size: 0.85rem;
+      color: #6b7280;
       font-style: italic;
     }
   }

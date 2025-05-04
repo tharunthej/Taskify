@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Taskify.DTO.ProjectsDTO;
+using Taskify.DTO.ProjectMembersDTO;
 using Taskify.Models.Models;
 using Taskify.Services.Interfaces;
 
@@ -62,7 +63,7 @@ namespace Taskify.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error getting project {id}");
-                return StatusCode(500, "An error occurred");
+                return StatusCode(500, "An error occurred here");
             }
         }
 
@@ -157,6 +158,30 @@ namespace Taskify.API.Controllers
             {
                 _logger.LogError(ex, $"Error adding member to project {projectId}");
                 return StatusCode(500, "An error occurred");
+            }
+        }
+
+        [HttpGet("{projectId}/members")]
+        public async Task<ActionResult<IEnumerable<ProjectMemberResponseDto>>> GetProjectMembers(int projectId)
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var members = await _projectService.GetProjectMembersAsync(projectId, userId);
+                var response = _mapper.Map<IEnumerable<ProjectMemberResponseDto>>(members);
+                return Ok(response);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Forbid(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
 

@@ -1,15 +1,15 @@
 <app-nav-bar></app-nav-bar>
 <div class="project-board-container">
-    <div class="board-header">
-      <h1 class="page-title">Project Dashboard</h1>
-      <button mat-raised-button 
-              color="primary" 
-              routerLink="/projects/new" 
-              class="create-button">
-        <mat-icon>add</mat-icon>
-        New Project
-      </button>
-    </div>
+  <div class="board-header">
+    <h1 class="page-title">Project Dashboard</h1>
+    <button mat-raised-button 
+            color="primary" 
+            (click)="openCreateProjectDialog()" 
+            class="create-button">
+      <mat-icon>add</mat-icon>
+      New Project
+    </button>
+  </div>
   
     <div *ngIf="isLoading" class="loading">
       <mat-spinner diameter="50"></mat-spinner>

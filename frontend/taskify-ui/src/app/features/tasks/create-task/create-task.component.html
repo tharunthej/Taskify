@@ -1,0 +1,87 @@
+<div class="create-task-dialog">
+  <div class="dialog-accent"></div>
+  <h2 mat-dialog-title class="dialog-title">
+    <mat-icon class="header-icon">post_add</mat-icon>
+    Create New Task
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <!-- Row 1: Title -->
+      <div class="form-row single">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Task Title</mat-label>
+          <input matInput formControlName="title" required>
+          <mat-icon matPrefix class="form-icon">title</mat-icon>
+          <mat-error *ngIf="taskForm.get('title')?.hasError('required')">
+            <mat-icon>error</mat-icon>
+            Title is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Row 2: Description -->
+      <div class="form-row single">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description" rows="4"></textarea>
+          <mat-icon matPrefix class="form-icon">description</mat-icon>
+          <mat-hint align="end" class="character-counter">
+            {{ taskForm.get('description')?.value?.length || 0 }}/1000
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <!-- Row 3: Status & Priority -->
+      <div class="form-row dual">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="statusId" required>
+            <!-- ... status options ... -->
+          </mat-select>
+          <mat-icon matPrefix class="form-icon">flag</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Priority</mat-label>
+          <mat-select formControlName="priorityId" required>
+            <!-- ... priority options ... -->
+          </mat-select>
+          <mat-icon matPrefix class="form-icon">priority_high</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Row 4: Project & Assignee -->
+      <div class="form-row dual">
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Project</mat-label>
+          <mat-select formControlName="projectId" required>
+            <!-- ... project options ... -->
+          </mat-select>
+          <mat-icon matPrefix class="form-icon">folder</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" floatLabel="always">
+          <mat-label>Assign To</mat-label>
+          <mat-select formControlName="assignedTo">
+            <!-- ... assignee options ... -->
+          </mat-select>
+          <mat-icon matPrefix class="form-icon">person</mat-icon>
+        </mat-form-field>
+      </div>
+
+
+      <!-- Actions -->
+      <mat-dialog-actions align="end" class="dialog-actions">
+        <button mat-stroked-button type="button" (click)="close()" class="cancel-btn">
+          Cancel
+        </button>
+        <button mat-raised-button color="primary" type="submit" 
+                class="submit-btn" [disabled]="!taskForm.valid">
+          <mat-icon>add_task</mat-icon>
+          Create Task
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</div>

@@ -24,10 +24,12 @@ namespace Taskify.Services.Services
 
         public async Task<IEnumerable<Project>> GetAllProjectsAsync(int userId)
         {
+            // Get all projects where the user is a member
             return await _context.Projects
                 .Include(p => p.Creator)
                 .Include(p => p.Members!)
-                .ThenInclude(m => m.User)
+                    .ThenInclude(m => m.User)
+                .Include(p => p.Tasks!)
                 .Where(p => p.Members!.Any(m => m.UserId == userId))
                 .AsNoTracking()
                 .ToListAsync();
@@ -38,7 +40,8 @@ namespace Taskify.Services.Services
             var project = await _context.Projects
                 .Include(p => p.Creator)
                 .Include(p => p.Members!)
-                .ThenInclude(m => m.User)
+                    .ThenInclude(m => m.User)
+                .Include(p => p.Tasks!)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null) throw new KeyNotFoundException($"Project with ID {id} not found.");
@@ -179,6 +182,34 @@ namespace Taskify.Services.Services
                 await transaction.CommitAsync();
             }
             catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<ProjectMember>> GetProjectMembersAsync(int projectId, int userId)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var project = await _context.Projects
+                    .Include(p => p.Members)
+                        .ThenInclude(m => m.User)
+                    .Include(p => p.Members)
+                        .ThenInclude(m => m.Project)
+                    .FirstOrDefaultAsync(p => p.Id == projectId);
+
+                if (project == null)
+                    throw new KeyNotFoundException($"Project with ID {projectId} not found.");
+
+                if (!HasProjectAccess(project, userId))
+                    throw new UnauthorizedAccessException("You don't have access to this project");
+
+                await transaction.CommitAsync();
+                return project.Members;
+            }
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 throw;

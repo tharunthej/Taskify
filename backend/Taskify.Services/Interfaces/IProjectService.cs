@@ -15,5 +15,7 @@ namespace Taskify.Services.Interfaces
         Task DeleteProjectAsync(int id, int userId);
         
         Task AddMemberToProjectAsync(int projectId, int userId, int currentUserId);
+
+        Task<IEnumerable<ProjectMember>> GetProjectMembersAsync(int projectId, int userId);
     }
 }

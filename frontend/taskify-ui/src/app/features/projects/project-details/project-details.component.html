@@ -1,0 +1,81 @@
+<app-nav-bar></app-nav-bar>
+<div class="project-container">
+  <!-- Header Section -->
+  <div class="project-header">
+    <h1 class="project-title">{{ project.name }}</h1>
+    <div class="project-meta">
+      <div class="meta-item">
+        <mat-icon>person</mat-icon>
+        <span>Created by {{ project.creatorName }}</span>
+      </div>
+      <div class="meta-item">
+        <mat-icon>calendar_today</mat-icon>
+        <span>{{ project.createdAt | date:'mediumDate' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Description Section -->
+  <div class="description-section">
+    <h2 class="section-title">
+      <mat-icon>description</mat-icon>
+      Description
+    </h2>
+    <p class="description-content">{{ project.description || 'No description provided' }}</p>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <mat-icon>groups</mat-icon>
+      <div class="stat-content">
+        <div class="stat-value">{{ project.memberCount || 0 }}</div>
+        <div class="stat-label">Members</div>
+      </div>
+    </div>
+    
+    <div class="stat-card">
+      <mat-icon>assignment</mat-icon>
+      <div class="stat-content">
+        <div class="stat-value">{{ tasks.length }}</div>
+        <div class="stat-label">Total Tasks</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tasks Section -->
+  <div class="tasks-section">
+    <div class="section-header">
+      <h2 class="section-title">
+        <mat-icon>list_alt</mat-icon>
+        Tasks
+      </h2>
+      <button mat-raised-button 
+        class="new-task-btn"
+        (click)="openCreateTaskDialog()">
+            <mat-icon>add_task</mat-icon>
+            New Task
+      </button>
+    </div>
+
+    <div class="tasks-list">
+      @for (task of tasks; track task.id) {
+        <div class="task-item" (click)="navigateToTask(task.id)">
+          <div class="task-info">
+            <mat-icon class="task-icon">assignment</mat-icon>
+            <span class="task-title">{{ task.title }}</span>
+          </div>
+          <mat-chip class="status-chip" [style.background]=2>
+            {{ task.status }}
+          </mat-chip>
+        </div>
+      }
+      @empty {
+        <div class="no-tasks">
+          <mat-icon>checklist</mat-icon>
+          <p>No tasks created yet</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

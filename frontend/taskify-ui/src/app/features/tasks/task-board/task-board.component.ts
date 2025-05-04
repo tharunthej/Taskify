@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { ReplacePipe } from '../../../core/pipes/replace-spaces.pipe';
 import { NavBarComponent } from '../../../core/nav-bar/nav-bar/nav-bar.component';
-import { TaskFormComponent } from '../task-form/task-form.component';
+import { CreateTaskComponent } from '../create-task/create-task.component';
 import { SignalRService } from '../../../services/signalr.service';
 
 @Component({
@@ -30,7 +30,7 @@ import { SignalRService } from '../../../services/signalr.service';
 })
 export class TaskBoardComponent implements OnInit, OnDestroy {
   tasks: TaskItem[] = [];
-  statuses = ['To Do', 'In Progress', 'Done'];
+  statuses = ['To Do', 'In Progress', 'Done', 'Rejected'];
 
   constructor(
     private taskService: TaskService,
@@ -102,7 +102,7 @@ export class TaskBoardComponent implements OnInit, OnDestroy {
   }
 
   openTaskForm(): void {
-    const dialogRef = this.dialog.open(TaskFormComponent, {
+    const dialogRef = this.dialog.open(CreateTaskComponent, {
       data: { projectId: 1 } // Pass actual project ID
     });
 

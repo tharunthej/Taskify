@@ -1,40 +1,54 @@
-<div class="create-project-container">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title>Create New Project</mat-card-title>
-      </mat-card-header>
+<!-- create-project.component.html -->
+<div class="create-project-dialog">
+  <div class="dialog-accent"></div>
   
-      <mat-card-content>
-        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="outline">
-            <mat-label>Project Name</mat-label>
-            <input matInput formControlName="name" required>
-            <mat-error *ngIf="projectForm.get('name')?.hasError('required')">
-              Name is required
-            </mat-error>
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput formControlName="description" rows="3"></textarea>
-          </mat-form-field>
-  
-          <div class="actions">
-            <button 
-              mat-raised-button 
-              color="primary" 
-              type="submit"
-              [disabled]="!projectForm.valid || isSubmitting">
-              Create Project
-            </button>
-            <button 
-              mat-button 
-              type="button"
-              routerLink="/projects">
-              Cancel
-            </button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
+  <h2 mat-dialog-title class="dialog-title">
+    <mat-icon class="header-icon">create_new_folder</mat-icon>
+    Create New Project
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <!-- Project Name -->
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Project Name</mat-label>
+        <input matInput formControlName="name" required>
+        <mat-icon matPrefix class="form-icon">badge</mat-icon>
+        <mat-error *ngIf="projectForm.get('name')?.hasError('required')">
+          <mat-icon>error</mat-icon>
+          Project name is required
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Description -->
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="4"></textarea>
+        <mat-icon matPrefix class="form-icon">description</mat-icon>
+        <mat-hint align="end" class="character-counter">
+          {{ projectForm.get('description')?.value?.length || 0 }}/500
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-dialog-actions align="end" class="dialog-actions">
+        <button 
+          mat-stroked-button 
+          type="button"
+          class="cancel-btn"
+          mat-dialog-close>
+          Cancel
+        </button>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          type="submit"
+          class="submit-btn"
+          [disabled]="!projectForm.valid || isSubmitting">
+          <mat-icon *ngIf="!isSubmitting">create</mat-icon>
+          <mat-spinner *ngIf="isSubmitting" diameter="20"></mat-spinner>
+          {{ isSubmitting ? 'Creating...' : 'Create Project' }}
+        </button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
 </div>

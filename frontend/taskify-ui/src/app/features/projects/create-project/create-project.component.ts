@@ -3,9 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+
 import { ProjectService } from '../../../core/services/project.service';
 import { Router } from '@angular/router';
 
@@ -20,6 +24,9 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDialogModule,
+    MatIconModule,
+    MatProgressSpinner,
     MatCardModule
   ]
 })

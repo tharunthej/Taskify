@@ -1,0 +1,226 @@
+.project-container {
+  padding: 80px 32px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+.project-header {
+  margin-bottom: 40px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  .project-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 12px;
+  }
+
+  .project-meta {
+    display: flex;
+    gap: 24px;
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #666;
+      
+      mat-icon {
+        color: #3f51b5;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.description-section {
+  margin-bottom: 32px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.4rem;
+    color: #3f51b5;
+    margin-bottom: 20px;
+    
+    mat-icon {
+      font-size: 28px;
+    }
+  }
+
+  .description-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+    padding-left: 40px;
+  }
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+
+  .stat-card {
+    padding: 24px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+
+    mat-icon {
+      font-size: 40px;
+      width: 40px;
+      height: 40px;
+      color: #3f51b5;
+    }
+
+    .stat-content {
+      .stat-value {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .stat-label {
+        color: #666;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
+
+.tasks-section {
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      color: #3f51b5;
+      margin: 0;
+
+      mat-icon {
+        font-size: 28px;
+      }
+    }
+
+    .new-task-btn {
+      background: linear-gradient(135deg, #3f51b5 0%, #2196F3 100%);
+      color: white !important;
+      padding: 0 24px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      height: 44px;
+      
+      mat-icon {
+        margin-right: 8px;
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+      }
+    
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(63, 81, 181, 0.2);
+      }
+    }
+  }
+
+  .tasks-list {
+    .task-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      margin: 8px 0;
+      background: #f8f9fa;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #f1f3f5;
+        transform: translateX(4px);
+      }
+
+      .task-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .task-icon {
+          color: #666;
+        }
+
+        .task-title {
+          font-weight: 500;
+          color: #2c3e50;
+        }
+      }
+
+      .status-chip {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+      }
+    }
+
+    .no-tasks {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 40px 24px;
+      color: #666;
+
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        opacity: 0.6;
+      }
+
+      p {
+        margin: 0;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

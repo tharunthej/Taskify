@@ -26,6 +26,23 @@ export interface TaskItem {
     comments?: Comment[];
     attachments?: Attachment[];
   }
+
+  // Task Status Models
+  export interface TaskStatus {
+    id: number;
+    status: string;
+    color?: string;  // Optional for UI display
+    order?: number;  // Optional for sorting
+  }
+  
+  // Task Priority Models
+  export interface TaskPriority {
+    id: number;
+    priorityLevel: string;
+    color?: string;  // Optional for UI display
+    icon?: string;   // Optional for UI
+  }
+  
   
   // Optional: Define related interfaces if needed
   export interface Comment {

@@ -1,0 +1,205 @@
+.create-task-dialog {
+  padding: 0 32px 32px;
+  min-width: 720px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  // Top color accent
+  .dialog-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #3f51b5 0%, #2196F3 100%);
+  }
+
+  // Dialog title with icon
+  .dialog-title {
+    padding: 32px 0 24px;
+    margin: 0 -32px 24px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #f0f2f5;
+    
+    .header-icon {
+      color: #3f51b5;
+      margin-left: 32px;
+      margin-right: 20px;
+      font-size: 32px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      top: 2px;
+    }
+  }
+
+  mat-dialog-content {
+    padding: 16px 0;
+  }
+
+  // Form fields
+  mat-form-field {
+    .form-icon {
+      color: #3f51b5;
+      margin-left: 16px;
+      margin-right: 16px;
+      font-size: 1.2rem;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(1px);
+    }
+
+    .mat-form-field-prefix {
+      margin-right: 12px;
+      align-self: center;
+    }
+
+    .mat-form-field-outline {
+      border-radius: 8px !important;
+    }
+  }
+
+  // Form layout
+  .form-row {
+    margin-bottom: 2rem;
+
+    &.single {
+      display: block;
+      mat-form-field {
+        width: 100%;
+        margin-bottom: 0;
+      }
+    }
+
+    &.dual {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+  }
+
+  // Status/Priority indicators
+  .status-indicator,
+  .priority-indicator {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 12px;
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .priority-indicator {
+    border: 2px solid #fff;
+    &.high { background: #ff5252; }
+    &.medium { background: #ffc107; }
+    &.low { background: #4caf50; }
+  }
+
+  // User/Project options
+  .user-option,
+  .project-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background: rgba(63, 81, 181, 0.05);
+    }
+    
+    mat-icon {
+      color: #3f51b5;
+      font-size: 1.2rem;
+    }
+  }
+
+  // Dialog actions
+  .dialog-actions {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #f0f2f5;
+
+    .submit-btn {
+      background: linear-gradient(135deg, #3f51b5 0%, #2196F3 100%);
+      color: white;
+      padding: 0 36px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+
+      &:hover:not([disabled]) {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(63, 81, 181, 0.3);
+      }
+
+      &[disabled] {
+        background: #e0e0e0;
+        color: #9e9e9e;
+        cursor: not-allowed;
+      }
+    }
+
+    .cancel-btn {
+      border-color: #e0e0e0;
+      margin-right: 16px;
+      border-radius: 8px;
+    }
+  }
+
+  // Error messages
+  mat-error {
+    padding: 8px 12px;
+    background: #ffebee;
+    border-radius: 6px;
+    margin-top: 4px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    mat-icon {
+      font-size: 1rem;
+      color: #d32f2f;
+    }
+  }
+
+  // Character counter
+  .character-counter {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 8px;
+    letter-spacing: -0.2px;
+  }
+}
+
+// Global dialog styling
+.task-dialog-container {
+  .mat-mdc-dialog-surface {
+    border-radius: 12px !important;
+    overflow: hidden;
+  }
+  
+  .mdc-dialog__surface {
+    overflow: visible !important;
+  }
+
+  .mat-mdc-dialog-surface {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  }
+}

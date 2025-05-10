@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 using Taskify.Data;
 using Taskify.Models.Models;
 using Taskify.Services.Interfaces;
@@ -24,13 +25,6 @@ namespace Taskify.Services.Services
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> CreateUserAsync(User user)
-        {
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-            return user;
-        }
-
         public async Task UpdateUserAsync(User user)
         {
             _context.Entry(user).State = EntityState.Modified;
@@ -45,6 +39,16 @@ namespace Taskify.Services.Services
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
             }
+        }
+            
+        public bool VerifyPassword(User user, string password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
+        }
+    
+        public string HashPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 12);
         }
     }
 }

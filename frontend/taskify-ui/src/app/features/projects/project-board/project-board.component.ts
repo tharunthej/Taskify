@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectService } from '../../../core/services/project.service';
 import { AuthService } from '../../../core/services/auth.service';
-import { Project, ProjectResponse } from '../../../models/project.model';
+import { ProjectResponse } from '../../../models/project.model';
 import { ProjectCardComponent } from '../project-card/project-card.component';
 import { NavBarComponent } from '../../../core/nav-bar/nav-bar/nav-bar.component';
 import { CreateProjectComponent } from '../create-project/create-project.component';
@@ -18,7 +17,6 @@ import { CreateProjectComponent } from '../create-project/create-project.compone
   styleUrls: ['./project-board.component.scss'],
   imports: [
     CommonModule,
-    RouterLink,
     ProjectCardComponent,
     MatProgressSpinnerModule,
     MatIconModule,

@@ -12,11 +12,16 @@ namespace Taskify.API.Controllers
     {
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
+        private readonly ILogger<UsersController> _logger;
 
-        public UsersController(IUserService userService, IMapper mapper)
+        public UsersController(
+            IUserService userService, 
+            IMapper mapper,
+            ILogger<UsersController> logger)
         {
             _userService = userService;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // GET: api/users
@@ -41,28 +46,46 @@ namespace Taskify.API.Controllers
             return Ok(response);
         }
 
-        // POST: api/users
-        [HttpPost]
-        public async Task<ActionResult<UserResponseDto>> CreateUser([FromBody] CreateUserDto createDto)
-        {
-            var newUser = _mapper.Map<User>(createDto);
-            var createdUser = await _userService.CreateUserAsync(newUser);
-            var response = _mapper.Map<UserResponseDto>(createdUser);
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, response);
-        }
-
         // PUT: api/users/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UpdateUserDto updateDto)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null) return NotFound();
+    
+                // Password update logic
+                if (!string.IsNullOrEmpty(updateDto.NewPassword))
+                {
+                    if (string.IsNullOrEmpty(updateDto.CurrentPassword))
+                    {
+                        return BadRequest("Current password is required to set a new password");
+                    }
+    
+                    if (!_userService.VerifyPassword(user, updateDto.CurrentPassword))
+                    {
+                        return BadRequest("Current password is incorrect");
+                    }
+    
+                    user.PasswordHash = _userService.HashPassword(updateDto.NewPassword);
+                }
+    
+                // Update other fields
+                _mapper.Map(updateDto, user);
+                
+                // Clear password fields from the mapped user
+                user.PasswordHash = user.PasswordHash; // Maintain the hash if not changing password
+    
+                await _userService.UpdateUserAsync(user);
+    
+                return NoContent();
             }
-            _mapper.Map(updateDto, user);
-            await _userService.UpdateUserAsync(user);
-            return NoContent();
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating user {UserId}", id);
+                return StatusCode(500, "An error occurred while updating the user");
+            }
         }
 
         // DELETE: api/users/5

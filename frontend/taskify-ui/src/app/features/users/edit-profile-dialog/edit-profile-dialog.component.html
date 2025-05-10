@@ -1,0 +1,79 @@
+<h2 mat-dialog-title>Edit Profile</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm" class="edit-form">
+    <!-- Profile Section -->
+    <div class="form-section">
+      <h3 class="section-header">
+        <mat-icon>person</mat-icon>
+        Profile Information
+      </h3>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" required>
+        <mat-error *ngIf="editForm.get('username')?.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required>
+        <mat-error *ngIf="editForm.get('email')?.hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="editForm.get('email')?.hasError('email')">
+          Invalid email format
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Password Section -->
+    <div class="form-section">
+      <h3 class="section-header">
+        <mat-icon>lock</mat-icon>
+        Change Password
+      </h3>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Current Password</mat-label>
+        <input matInput formControlName="currentPassword" [type]="hideCurrentPassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideCurrentPassword = !hideCurrentPassword">
+          <mat-icon>{{ hideCurrentPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>New Password</mat-label>
+        <input matInput formControlName="newPassword" [type]="hideNewPassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideNewPassword = !hideNewPassword">
+          <mat-icon>{{ hideNewPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-hint>Minimum 6 characters</mat-hint>
+        <mat-error *ngIf="editForm.get('newPassword')?.hasError('minlength')">
+          Password must be at least 6 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Confirm New Password</mat-label>
+        <input matInput formControlName="confirmPassword" [type]="hideConfirmPassword ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword">
+          <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="editForm.hasError('passwordMismatch')">
+          Passwords do not match
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-actions">
+  <button mat-stroked-button class="cancel-button" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" class="save-button" 
+          (click)="onSubmit()" 
+          [disabled]="editForm.invalid">
+    Save
+  </button>
+</mat-dialog-actions>

@@ -80,4 +80,9 @@ export class AuthService {
     }
     return throwError(() => new Error(errorMessage));
   }
+
+  updateCurrentUser(user: User): void {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    this.currentUserSubject.next(user);
+  }
 }

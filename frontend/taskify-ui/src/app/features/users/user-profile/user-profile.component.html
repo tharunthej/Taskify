@@ -1,16 +1,45 @@
+<app-nav-bar></app-nav-bar>
 <div class="profile-container">
-    <div class="user-info">
-      <h2>{{ user?.username }}</h2>
-      <p>{{ user?.email }}</p>
+    <div class="user-info-card">
+      <div class="header-actions">
+        <button mat-icon-button (click)="openEditDialog()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      
+      <div class="user-header">
+        <mat-icon class="profile-icon">account_circle</mat-icon>
+        <div class="user-details">
+          <h2 class="username">{{ user?.username }}</h2>
+          <p class="email">{{ user?.email }}</p>
+        </div>
+      </div>
+      
+      <div class="meta-info">
+        <div class="meta-item">
+          <mat-icon>event</mat-icon>
+          <span>Joined {{ user?.createdAt | date:'mediumDate' }}</span>
+        </div>
+      </div>
     </div>
-  
+
     <div class="projects-section">
-      <h3>Your Projects</h3>
-      <div class="projects-list">
+      <h3 class="section-title">
+        <mat-icon class="section-icon">dashboard</mat-icon>
+        Managed Projects
+      </h3>
+      
+      <div *ngIf="projects.length > 0" class="projects-list">
         <app-project-card 
           *ngFor="let project of projects" 
-          [project]="project">
+          [project]="project"
+          class="project-item">
         </app-project-card>
+      </div>
+      
+      <div *ngIf="projects.length === 0" class="no-projects">
+        <mat-icon>inbox</mat-icon>
+        <p>No projects created yet</p>
       </div>
     </div>
 </div>

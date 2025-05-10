@@ -10,6 +10,10 @@ namespace Taskify.DTO.UsersDTO
         [EmailAddress, MaxLength(100)]
         public string? Email { get; set; }
 
-        public string? PasswordHash { get; set; }
+        [DataType(DataType.Password)]
+        public string? CurrentPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        public string? NewPassword { get; set; }
     }
 }

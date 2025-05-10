@@ -21,6 +21,11 @@ export class ProjectService {
     return this.http.get<ProjectResponse>(`${this.apiUrl}/${id}`);
   }
 
+  // Get all projects for a specific user where the user is the admin
+  getProjectsByAdmin(): Observable<ProjectResponse[]> {
+    return this.http.get<ProjectResponse[]>(`${this.apiUrl}/admin`);
+  }
+
   // Create new project
   createProject(projectData: { name: string; description?: string }): Observable<Project> {
     return this.http.post<Project>(this.apiUrl, projectData);

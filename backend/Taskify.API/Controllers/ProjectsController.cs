@@ -67,6 +67,23 @@ namespace Taskify.API.Controllers
             }
         }
 
+        [HttpGet("admin")]
+        public async Task<ActionResult<IEnumerable<ProjectResponseDto>>> GetAdminProjects()
+        {
+            try
+            {
+                var userId = GetCurrentUserId();
+                var projects = await _projectService.GetAdminProjectsAsync(userId);
+                var response = _mapper.Map<IEnumerable<ProjectResponseDto>>(projects);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting admin projects");
+                return StatusCode(500, "An error occurred");
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<ProjectResponseDto>> CreateProject([FromBody] CreateProjectDto createDto)
         {

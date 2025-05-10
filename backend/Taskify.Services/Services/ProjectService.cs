@@ -51,6 +51,21 @@ namespace Taskify.Services.Services
 
             return project;
         }
+        
+        public async Task<IEnumerable<Project>> GetAdminProjectsAsync(int userId)
+        {
+            return await _context.Projects
+                .Include(p => p.Creator)
+                .Include(p => p.Members!)
+                    .ThenInclude(m => m.User)
+                .Include(p => p.Tasks!)
+                .Where(p => p.Members!.Any(m => 
+                    m.UserId == userId && 
+                    m.UserRoleId == 1
+                ))
+                .AsNoTracking()
+                .ToListAsync();
+        }
 
         public async Task<Project> CreateProjectAsync(Project project)
         {
